@@ -6,6 +6,8 @@ import Loader from "../components/dashboard/Loader";
 import Sidebar from "../components/layout/Sidebar";
 import Navbar from "../components/layout/Navbar";
 
+import LineChartCard from "../components/charts/LineChartCard";
+
 export default function Dashboard() {
 
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,7 @@ export default function Dashboard() {
 
   return (
 
-    <div className="flex bg-slate-100">
+    <div className="flex bg-slate-100 min-h-screen">
 
       <Sidebar />
 
@@ -51,27 +53,37 @@ export default function Dashboard() {
             ?
             <Loader />
             :
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <>
 
-              <MetricCard
-                title="Incidencias"
-                value={incidencias}
-                description="Incidencias registradas este mes"
-              />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-              <MetricCard
-                title="Alertas"
-                value={542}
-                description="Alertas críticas activas"
-              />
+                <MetricCard
+                  title="Incidencias"
+                  value={incidencias}
+                  description="Incidencias registradas este mes"
+                />
 
-              <MetricCard
-                title="Cámaras"
-                value={128}
-                description="Cámaras operativas"
-              />
+                <MetricCard
+                  title="Alertas"
+                  value={542}
+                  description="Alertas críticas activas"
+                />
 
-            </div>
+                <MetricCard
+                  title="Cámaras"
+                  value={128}
+                  description="Cámaras operativas"
+                />
+
+              </div>
+
+              <div className="mt-8">
+
+                <LineChartCard />
+
+              </div>
+
+            </>
           }
 
         </div>
@@ -79,5 +91,7 @@ export default function Dashboard() {
       </main>
 
     </div>
+
   );
+
 }
