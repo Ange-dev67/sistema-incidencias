@@ -1,0 +1,214 @@
+{
+  "app": {
+    "name": "Surveillance Incident Management",
+    "theme": {
+      "primaryColor": "#1E293B",
+      "secondaryColor": "#0EA5E9",
+      "background": "#F1F5F9"
+    },
+    "auth": {
+      "login": {
+        "type": "form",
+        "title": "Ingreso al Sistema",
+        "fields": [
+          { "name": "usuario", "label": "Usuario", "type": "text", "required": true },
+          { "name": "password", "label": "Contraseña", "type": "password", "required": true }
+        ],
+        "actions": [
+          { "label": "Iniciar Sesión", "type": "submit" }
+        ]
+      }
+    },
+    "layout": {
+      "sidebar": {
+        "items": [
+          { "name": "Dashboard", "icon": "dashboard" },
+          { "name": "Incidencias", "icon": "warning" },
+          { "name": "Reportes", "icon": "bar_chart" },
+          { "name": "Camaras", "icon": "videocam" },
+          { "name": "Soporte", "icon": "support_agent" },
+          { "name": "Configuracion", "icon": "settings" }
+        ],
+        "footer": {
+          "user": {
+            "name": "Usuario",
+            "icon": "account_circle"
+          }
+        }
+      },
+      "topbar": {
+        "title": "Surveillance Incident Management",
+        "search": {
+          "placeholder": "Buscar..."
+        },
+        "actions": [
+          { "icon": "refresh", "action": "reload" },
+          { "icon": "notifications", "action": "alerts" },
+          { "icon": "logout", "action": "logout" }
+        ]
+      }
+    },
+    "pages": {
+      "dashboard": {
+        "layout": "grid",
+        "components": [
+          {
+            "type": "table",
+            "title": "Registro de Incidencia",
+            "columns": [
+              "Nombre",
+              "Fecha",
+              "Tipo",
+              "Supervisor",
+              "Operador",
+              "Radio Operador",
+              "Observatorio",
+              "Camara",
+              "Descripcion"
+            ],
+            "actions": [
+              {
+                "label": "Guardar incidencia",
+                "type": "primary"
+              }
+            ],
+            "form": {
+              "fields": [
+                { "name": "nombre", "type": "text" },
+                { "name": "fecha", "type": "date" },
+                {
+                  "name": "tipo",
+                  "type": "select",
+                  "options": ["Robo", "Sospecha", "Accidente"],
+                  "extra": {
+                    "label": "Agregar incidencia",
+                    "modal": {
+                      "title": "Nueva Incidencia",
+                      "fields": [
+                        { "name": "nuevo_tipo", "type": "text", "label": "Tipo de incidencia" }
+                      ],
+                      "actions": [
+                        { "label": "Guardar", "type": "primary" },
+                        { "label": "Cancelar", "type": "secondary" }
+                      ]
+                    }
+                  }
+                },
+                { "name": "supervisor", "type": "text" },
+                { "name": "operador", "type": "text" },
+                { "name": "radio_operador", "type": "text" },
+                { "name": "observatorio", "type": "text" },
+                { "name": "camara", "type": "text" },
+                { "name": "descripcion", "type": "textarea" }
+              ]
+            }
+          },
+          {
+            "type": "table",
+            "title": "Registros Recientes",
+            "columns": ["Nombre", "Fecha", "Tipo"]
+          }
+        ]
+      },
+      "incidencias": {
+        "components": [
+          {
+            "type": "table",
+            "title": "Listado de Incidencias",
+            "columns": [
+              "Nombre",
+              "Fecha",
+              "Tipo",
+              "Estado"
+            ]
+          }
+        ]
+      },
+      "reportes": {
+        "components": [
+          {
+            "type": "chart",
+            "title": "Incidencias por Tipo",
+            "chartType": "bar"
+          },
+          {
+            "type": "chart",
+            "title": "Incidencias por Fecha",
+            "chartType": "line"
+          }
+        ]
+      },
+      "camaras": {
+        "layout": "grid",
+        "components": [
+          {
+            "type": "table",
+            "title": "Asignacion de Camaras",
+            "columns": [
+              "Operador",
+              "Base",
+              "Total",
+              "Camaras Operativas",
+              "Camaras Inoperativas"
+            ],
+            "actions": [
+              {
+                "label": "Registrar inicio de turno",
+                "type": "primary"
+              }
+            ]
+          },
+          {
+            "type": "table",
+            "title": "Turnos",
+            "columns": [
+              "Operador",
+              "Hora Inicio",
+              "Hora Fin",
+              "Estado"
+            ]
+          },
+          {
+            "type": "table",
+            "title": "Listado de Camaras",
+            "columns": [
+              "ID",
+              "Ubicacion",
+              "Estado"
+            ]
+          }
+        ]
+      },
+      "soporte": {
+        "components": [
+          {
+            "type": "form",
+            "title": "Mesa de Ayuda",
+            "fields": [
+              { "name": "asunto", "type": "text" },
+              { "name": "mensaje", "type": "textarea" }
+            ],
+            "actions": [
+              { "label": "Enviar", "type": "primary" }
+            ]
+          }
+        ]
+      },
+      "configuracion": {
+        "components": [
+          {
+            "type": "form",
+            "title": "Configuracion del Sistema",
+            "fields": [
+              { "name": "nombreSistema", "type": "text" },
+              { "name": "notificaciones", "type": "toggle" }
+            ],
+            "actions": [
+              { "label": "Guardar Cambios", "type": "primary" }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

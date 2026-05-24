@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Sentinel - Reportes de Operación</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#39b8fd",
+                    "primary-fixed-dim": "#bcc7de",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#dfe3e7",
+                    "on-primary-fixed-variant": "#3c475a",
+                    "surface-container-high": "#e4e9ed",
+                    "surface": "#f6fafe",
+                    "on-background": "#171c1f",
+                    "surface-bright": "#f6fafe",
+                    "surface-tint": "#545f73",
+                    "on-primary-fixed": "#111c2d",
+                    "on-surface-variant": "#45474c",
+                    "on-secondary-fixed-variant": "#004c6e",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c5c6cd",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#35260c",
+                    "on-secondary-container": "#004666",
+                    "tertiary-fixed": "#fadfb8",
+                    "inverse-primary": "#bcc7de",
+                    "on-secondary-fixed": "#001e2f",
+                    "surface-container-low": "#f0f4f8",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#edf1f5",
+                    "primary": "#091426",
+                    "tertiary": "#1e1200",
+                    "on-surface": "#171c1f",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#271902",
+                    "primary-container": "#1e293b",
+                    "secondary-fixed-dim": "#89ceff",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d8e3fb",
+                    "outline": "#75777d",
+                    "inverse-surface": "#2c3134",
+                    "on-tertiary-container": "#a38c6a",
+                    "secondary-fixed": "#c9e6ff",
+                    "on-primary-container": "#8590a6",
+                    "background": "#f6fafe",
+                    "surface-container": "#eaeef2",
+                    "tertiary-fixed-dim": "#ddc39d",
+                    "surface-dim": "#d6dade",
+                    "secondary": "#006591",
+                    "surface-container-highest": "#dfe3e7",
+                    "on-tertiary-fixed-variant": "#564427"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Public Sans", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .chart-gradient { background: linear-gradient(180deg, #1e293b 0%, #0ea5e9 100%); }
+        .line-chart-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 2s ease-in-out forwards; }
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 docked left-0 bg-[#f0f4f8] dark:bg-[#1e293b] text-[#091426] dark:text-[#f6fafe] p-6 space-y-2 z-50">
+<div class="flex flex-col mb-8 px-2">
+<span class="text-lg font-bold text-[#091426] dark:text-white font-headline">Operational Command</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px] text-[#1e293b]/70 dark:text-[#f0f4f8]/70">Level 4 Authorization</span>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-[#1e293b]/70 dark:text-[#f0f4f8]/70 hover:text-[#091426] hover:bg-[#eaeef2] dark:hover:bg-[#091426]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px]">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#1e293b]/70 dark:text-[#f0f4f8]/70 hover:text-[#091426] hover:bg-[#eaeef2] dark:hover:bg-[#091426]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="emergency">emergency</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px]">Incidencias</span>
+</a>
+<!-- Active Tab: Reportes -->
+<a class="flex items-center space-x-3 px-4 py-3 bg-[#dfe3e7] dark:bg-[#091426] text-[#006591] dark:text-[#0ea5e9] rounded-lg shadow-sm translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px]">Reportes</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#1e293b]/70 dark:text-[#f0f4f8]/70 hover:text-[#091426] hover:bg-[#eaeef2] dark:hover:bg-[#091426]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px]">Camaras</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#1e293b]/70 dark:text-[#f0f4f8]/70 hover:text-[#091426] hover:bg-[#eaeef2] dark:hover:bg-[#091426]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px]">Soporte</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#1e293b]/70 dark:text-[#f0f4f8]/70 hover:text-[#091426] hover:bg-[#eaeef2] dark:hover:bg-[#091426]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] font-semibold uppercase tracking-[0.05em] text-[11px]">Configuracion</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-[#1e293b]/10">
+<div class="flex items-center space-x-3 px-2">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container">
+<img alt="Avatar" data-alt="professional portrait of a high-level security officer in a modern tactical uniform looking focused" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTSOQplPzIQoPix90E1RI_gAAY8bdA0gE0fBB4fqYjCWhOZSX977kI-ES-bD-6rGftqsEjqdrmOrA_NRUgNfuD6lO2O9W4lmLHwCznHcGVSgYP8-u_i4fhNRD9IEnqg2SHuG6uZ1rys9lp6Pz8Yt27JYVTZvvpgqERHFHGHCYB_XHWnhCgsVxFSEKA60htUdHYf9VYOgBKMTSNcd6156NtZ8-yTGBRR-FUgSA-TFlSuF1oP3zksX1H3ZfSJT_w0vgqv2OAOW3CGzBo"/>
+</div>
+<div class="flex flex-col">
+<span class="text-[11px] font-bold text-primary uppercase">C. Rodríguez</span>
+<span class="text-[9px] text-on-surface-variant uppercase">Command Chief</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col min-w-0 bg-surface">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-8 py-4 bg-[#f6fafe] dark:bg-[#091426] text-[#1e293b] dark:text-[#f0f4f8] no-border bg-gradient-to-b from-[#f0f4f8] to-transparent sticky top-0 z-40">
+<div class="flex items-center space-x-8">
+<div class="text-xl font-black tracking-tighter text-[#091426] dark:text-white uppercase font-headline">Digital Sentinel</div>
+<div class="hidden lg:flex relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container border-none rounded-xl text-sm focus:ring-2 focus:ring-secondary/20 transition-all w-64" placeholder="Buscar incidentes o reportes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<button class="p-2 rounded-full hover:bg-[#dfe3e7]/50 dark:hover:bg-[#1e293b]/50 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#dfe3e7]/50 dark:hover:bg-[#1e293b]/50 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#dfe3e7]/50 dark:hover:bg-[#1e293b]/50 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Page Header & Filters -->
+<section class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div>
+<h1 class="text-4xl font-black tracking-tight font-headline text-primary">Análisis de Operaciones</h1>
+<p class="text-on-surface-variant font-body mt-2">Visión analítica del rendimiento de vigilancia y patrones de incidentes.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3 bg-surface-container-low p-2 rounded-2xl">
+<div class="flex items-center space-x-2 px-3 py-2 bg-surface rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="calendar_today">calendar_today</span>
+<select class="bg-transparent border-none text-xs font-bold font-label focus:ring-0 cursor-pointer">
+<option>ÚLTIMOS 30 DÍAS</option>
+<option>ESTE TRIMESTRE</option>
+<option>AÑO ACTUAL</option>
+</select>
+</div>
+<div class="flex items-center space-x-2 px-3 py-2 bg-surface rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="filter_list">filter_list</span>
+<select class="bg-transparent border-none text-xs font-bold font-label focus:ring-0 cursor-pointer">
+<option>TODAS LAS CATEGORÍAS</option>
+<option>SEGURIDAD CRÍTICA</option>
+<option>MANTENIMIENTO</option>
+</select>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-xl text-xs font-bold tracking-widest uppercase hover:opacity-90 transition-opacity">
+                            Exportar PDF
+                        </button>
+</div>
+</section>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Chart: Incidencias por Fecha -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-[2rem] p-8 shadow-[0px_20px_40px_rgba(9,20,38,0.04)]">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="text-xl font-bold font-headline text-primary">Incidencias por Fecha</h3>
+<p class="text-sm text-on-surface-variant">Tendencia histórica de actividad detectada</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-[10px] font-bold font-label text-on-surface-variant">VOLUMEN</span>
+</div>
+</div>
+</div>
+<!-- Simulated Line Chart -->
+<div class="relative h-64 w-full">
+<svg class="w-full h-full" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="lineGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#e4e9ed" stroke-width="1" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="#e4e9ed" stroke-width="1" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="#e4e9ed" stroke-width="1" x1="0" x2="1000" y1="250" y2="250"></line>
+<!-- Area -->
+<path d="M0,250 L100,200 L200,220 L300,100 L400,120 L500,60 L600,180 L700,90 L800,110 L900,40 L1000,70 L1000,300 L0,300 Z" fill="url(#lineGrad)"></path>
+<!-- Line -->
+<path class="line-chart-path" d="M0,250 L100,200 L200,220 L300,100 L400,120 L500,60 L600,180 L700,90 L800,110 L900,40 L1000,70" fill="none" stroke="#0ea5e9" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+<div class="flex justify-between mt-4 text-[10px] font-bold font-label text-outline uppercase tracking-wider">
+<span>01 SEP</span>
+<span>08 SEP</span>
+<span>15 SEP</span>
+<span>22 SEP</span>
+<span>29 SEP</span>
+</div>
+</div>
+</div>
+<!-- Side Stat: Summary -->
+<div class="lg:col-span-4 flex flex-col space-y-8">
+<div class="bg-primary-container text-white rounded-[2rem] p-8 relative overflow-hidden flex-1 group">
+<div class="relative z-10">
+<h4 class="text-sm font-bold uppercase tracking-[0.1em] text-secondary">Total Mes</h4>
+<div class="text-6xl font-black mt-4 font-headline">1,284</div>
+<div class="mt-6 flex items-center space-x-2 text-secondary-container">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="text-sm font-bold">+12.5% vs mes anterior</span>
+</div>
+</div>
+<!-- Background texture element -->
+<div class="absolute -right-8 -bottom-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[12rem]" data-icon="security">security</span>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-[2rem] p-8 flex items-center justify-between">
+<div>
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Tiempo de Respuesta</h4>
+<div class="text-3xl font-black text-primary mt-1">4.2m</div>
+</div>
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+</div>
+</div>
+<!-- Bar Chart: Incidencias por Tipo -->
+<div class="lg:col-span-12 bg-surface-container-low rounded-[2rem] p-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-4">
+<div>
+<h3 class="text-2xl font-black font-headline text-primary uppercase tracking-tighter">Incidencias por Tipo</h3>
+<p class="text-sm text-on-surface-variant font-body">Distribución porcentual por categoría operativa</p>
+</div>
+<div class="flex space-x-4">
+<button class="px-4 py-2 bg-surface text-xs font-bold rounded-lg shadow-sm border border-outline-variant/10">VISTA SEMANAL</button>
+<button class="px-4 py-2 bg-primary text-on-primary text-xs font-bold rounded-lg">VISTA MENSUAL</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-end">
+<!-- Bar 1 -->
+<div class="flex flex-col items-center group">
+<div class="w-full bg-surface-container rounded-t-xl h-64 relative flex items-end overflow-hidden">
+<div class="w-full bg-primary-container h-[75%] transition-all duration-500 group-hover:opacity-80"></div>
+<span class="absolute top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface-variant">75%</span>
+</div>
+<div class="mt-4 text-center">
+<div class="text-xs font-black uppercase tracking-widest text-primary">Acceso No Aut.</div>
+<div class="text-[10px] text-on-surface-variant mt-1">963 EVENTOS</div>
+</div>
+</div>
+<!-- Bar 2 -->
+<div class="flex flex-col items-center group">
+<div class="w-full bg-surface-container rounded-t-xl h-64 relative flex items-end overflow-hidden">
+<div class="w-full bg-secondary h-[42%] transition-all duration-500 group-hover:opacity-80"></div>
+<span class="absolute top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface-variant">42%</span>
+</div>
+<div class="mt-4 text-center">
+<div class="text-xs font-black uppercase tracking-widest text-primary">Vandalismo</div>
+<div class="text-[10px] text-on-surface-variant mt-1">540 EVENTOS</div>
+</div>
+</div>
+<!-- Bar 3 -->
+<div class="flex flex-col items-center group">
+<div class="w-full bg-surface-container rounded-t-xl h-64 relative flex items-end overflow-hidden">
+<div class="w-full bg-primary h-[88%] transition-all duration-500 group-hover:opacity-80"></div>
+<span class="absolute top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface-variant">88%</span>
+</div>
+<div class="mt-4 text-center">
+<div class="text-xs font-black uppercase tracking-widest text-primary">Falla Técnica</div>
+<div class="text-[10px] text-on-surface-variant mt-1">1,130 EVENTOS</div>
+</div>
+</div>
+<!-- Bar 4 -->
+<div class="flex flex-col items-center group">
+<div class="w-full bg-surface-container rounded-t-xl h-64 relative flex items-end overflow-hidden">
+<div class="w-full bg-secondary-container h-[15%] transition-all duration-500 group-hover:opacity-80"></div>
+<span class="absolute top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface-variant">15%</span>
+</div>
+<div class="mt-4 text-center">
+<div class="text-xs font-black uppercase tracking-widest text-primary">Mantenimiento</div>
+<div class="text-[10px] text-on-surface-variant mt-1">192 EVENTOS</div>
+</div>
+</div>
+<!-- Bar 5 -->
+<div class="flex flex-col items-center group">
+<div class="w-full bg-surface-container rounded-t-xl h-64 relative flex items-end overflow-hidden">
+<div class="w-full bg-outline-variant h-[28%] transition-all duration-500 group-hover:opacity-80"></div>
+<span class="absolute top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface-variant">28%</span>
+</div>
+<div class="mt-4 text-center">
+<div class="text-xs font-black uppercase tracking-widest text-primary">Otros</div>
+<div class="text-[10px] text-on-surface-variant mt-1">359 EVENTOS</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Featured Report Card -->
+<div class="lg:col-span-12 bg-white rounded-[2rem] overflow-hidden shadow-[0px_40px_80px_rgba(9,20,38,0.08)] flex flex-col md:flex-row">
+<div class="md:w-1/3 h-64 md:h-auto">
+<img class="w-full h-full object-cover" data-alt="dramatic wide shot of a futuristic control room with glowing blue screens and sleek grey hardware in a darkened environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgP3lKa220-eZoXqeD8P07NgOILuxFbuRt_k4zAcgRoM1hfdpyi2C_jrCvnCSM7Vzk8m4Zruh6LHnLroQPNGWXMKVMXDq6_8fnExdTyzpUsBHC5vof1T-Krmg00igzkRDz-kVQsPaf7ghRUdLfHrLSPwP3WJ5KKc9615sfdJCmop87_dpHD4MbHfwtFoemY1OAlhMhJCEqshmMntAOtGcLyN7FUrQ6Z2SF7rRFJZXTgRrdavv8OZwnoOb9tJo-bMyE-z72ZVevmqjQ"/>
+</div>
+<div class="md:w-2/3 p-10 flex flex-col justify-center">
+<span class="text-secondary font-black text-xs uppercase tracking-widest mb-4">Reporte Destacado del Mes</span>
+<h2 class="text-3xl font-black font-headline text-primary mb-4 leading-tight">Optimización de Respuesta en el Sector Noroeste</h2>
+<p class="text-on-surface-variant font-body mb-8 leading-relaxed">
+                                El despliegue de la nueva unidad táctica ha reducido los tiempos de respuesta en un 24%. Este reporte detalla los puntos de calor detectados y la efectividad del patrullaje automatizado.
+                            </p>
+<div class="flex items-center space-x-6">
+<button class="flex items-center space-x-2 text-primary font-bold hover:translate-x-2 transition-transform">
+<span class="uppercase tracking-widest text-sm">Leer Reporte Completo</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<span class="text-outline-variant text-sm">PDF (12.4 MB)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
