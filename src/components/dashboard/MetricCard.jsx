@@ -1,38 +1,17 @@
 import useCounter from "../../hooks/useCounter";
 
-export default function MetricCard({
-  title,
-  value,
-  description
-}) {
-
+export default function MetricCard({ title, value, description }) {
   const animatedValue = useCounter(value);
 
   return (
-    <div
-      className="
-        bg-white
-        rounded-3xl
-        p-8
-        shadow-lg
-        hover:scale-105
-        transition-all
-        duration-300
-      "
-    >
-
-      <h3 className="text-slate-500 uppercase text-sm font-bold">
+    <div className="bg-surface-container-lowest rounded-xl p-8 shadow-sm hover:scale-[1.02] transition-all duration-300">
+      <h3 className="text-[11px] font-bold uppercase tracking-[0.05em] text-on-surface-variant">
         {title}
       </h3>
-
-      <div className="text-5xl font-black mt-4 text-slate-800">
+      <div className="text-4xl font-black mt-4 text-primary">
         {animatedValue}
       </div>
-
-      <p className="mt-4 text-sm text-slate-400">
-        {description}
-      </p>
-
+      <p className="mt-4 text-sm text-on-surface-variant/60">{description}</p>
     </div>
   );
 }
